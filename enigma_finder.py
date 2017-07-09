@@ -17,9 +17,10 @@ def hex_to_num(x):
 print ('Which database would you like?')
 print ('1. Spinward Marches')
 print ('2. Solomani Rim')
+print ('3. Core')
 db_choice_no = input('Please pick a number... ')
-database_dict = {'1':'spinward_marches.db','2':'solomani_rim.db'}
-header_dict = {'1':'the Marches','2':'the Rim'}
+database_dict = {'1':'spinward_marches.db','2':'solomani_rim.db','3':'core.db'}
+header_dict = {'1':'the Marches','2':'the Rim','3':'Core'}
 conn = sqlite3.connect(database_dict[db_choice_no])
 c = conn.cursor()                   
 
@@ -29,7 +30,7 @@ c = conn.cursor()
 tech_level_rating = {   '0':10,'1':10,'2':10,'3':10,'4':10,
                         '5':100,'6':100,'7':100,'8':100,'9':100,
                         'A':1000,'B':1000,'C':1000,'D':1000,'E':1000,
-                        'F':1000,'G':1000,'H':1000}
+                        'F':1000,'G':1000,'H':1000,'J':1000}
                         
 starport_to_color = {'A':10,'B':9,'C':8,'D':7,'E':6,'X':5}
                         
@@ -59,12 +60,12 @@ for row in allrows:
     strange_level_row = hex_to_num(row[2][3])
 
     
-    if strange_level_row >= 10:
-        starport.append(starport_to_color[starport_row])
+    if strange_level_row >= 0:
+        starport.append(starport_row)
         name.append(name_row)
         law_level.append(law_level_row)
         accept_level.append(accept_level_row)
-        tech_level.append(tech_level_rating[tech_level_row])
+        tech_level.append(tech_level_row)
         strange_level.append(strange_level_row)
     
     
@@ -74,12 +75,12 @@ stall = input('Did you see this?')
 
 plt.xlabel('Law Level')
 plt.ylabel('Acceptance Level')
-plt.title('Acceptance and Law in ' + header_dict[db_choice_no] + '\nStrange Planets (=10) Only')
+plt.title('Acceptance and Law in ' + header_dict[db_choice_no])
 
 plt.axis([-1, 17, -1, 17])
-plt.scatter(law_level,accept_level)
+plt.scatter(law_level,accept_level,s=100, c = strange_level, cmap=plt.cm.RdYlGn)
 
-for i, txt in enumerate(name):
-	plt.annotate(txt, (law_level[i]-.5,accept_level[i]))
+# for i, txt in enumerate(name):
+	# plt.annotate(txt, (law_level[i]-.5,accept_level[i]))
 	
 plt.show()
