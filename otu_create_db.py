@@ -14,6 +14,7 @@ def create_t5_table(c,conn):
                                                 ix TEXT,
                                                 ex TEXT,
                                                 cx TEXT,
+                                                strangeness TEXT,
                                                 n TEXT,
                                                 bases TEXT,
                                                 zone TEXT,
@@ -65,6 +66,7 @@ for line in open("load_data.txt"):
         ix = (systems_[ix_char:ex_char-1])
         ex = (systems_[ex_char:cx_char-1])
         cx = (systems_[cx_char:naval_char-1])      
+        strangeness = (systems_[cx_char+3])      
         naval = (systems_[naval_char:base_char-1])    
         base = (systems_[base_char:zone_char-1])    
         zone = (systems_[zone_char:pbg_char-1])     
@@ -81,6 +83,7 @@ for line in open("load_data.txt"):
                                                         ix,
                                                         ex,
                                                         cx,
+                                                        strangeness,
                                                         n,
                                                         bases,
                                                         zone,
@@ -88,7 +91,7 @@ for line in open("load_data.txt"):
                                                         w,
                                                         allegiance,
                                                         stellar)
-                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
                         
         body_row =     (hex_,
                         name,
@@ -97,6 +100,7 @@ for line in open("load_data.txt"):
                         ix,
                         ex,
                         cx,
+                        strangeness,
                         naval,
                         base,
                         zone,
