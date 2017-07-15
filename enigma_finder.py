@@ -56,11 +56,12 @@ for row in allrows:
     starport_row = row[1][0]
     law_level_row = hex_to_num(row[1][6])
     accept_level_row = hex_to_num(row[2][2])
-    tech_level_row = row[1][8]
+    tech_level_row = hex_to_num(row[1][8])
     strange_level_row = hex_to_num(row[2][3])
-
+    print (name_row, starport_row, tech_level_row)
     
-    if strange_level_row >= 0:
+    
+    if starport_row == 'A':
         starport.append(starport_row)
         name.append(name_row)
         law_level.append(law_level_row)
@@ -68,17 +69,12 @@ for row in allrows:
         tech_level.append(tech_level_row)
         strange_level.append(strange_level_row)
     
-    
-    
-stall = input('Did you see this?')    
-    
-
-plt.xlabel('Law Level')
-plt.ylabel('Acceptance Level')
+plt.xlabel('Tech Level')
+plt.ylabel('Strange Level')
 plt.title('Acceptance and Law in ' + header_dict[db_choice_no])
 
-plt.axis([-1, 17, -1, 17])
-plt.scatter(law_level,accept_level,s=100, c = strange_level, cmap=plt.cm.RdYlGn)
+plt.axis([-1, 17, -1, 12])
+plt.scatter(tech_level,strange_level,s=100, c = accept_level, cmap=plt.cm.YlGn)
 
 # for i, txt in enumerate(name):
 	# plt.annotate(txt, (law_level[i]-.5,accept_level[i]))
